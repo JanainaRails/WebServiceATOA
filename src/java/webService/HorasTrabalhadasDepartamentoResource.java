@@ -2,7 +2,7 @@ package webService;
 
 import DAO.AtividadesConsolidadasDAO;
 import DAO.RelatorioDepartamentoDAO;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;

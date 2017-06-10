@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.AtividadesConsolidadas;
-import java.util.Date;
+import java.sql.Date;
 
 public class AtividadesConsolidadasDAO {
     private final static String ATIVIDADES ="SELECT atividade.idFuncionario, tipoatividade.nome, atividade.nome, atividade.inicioRealizado, atividade.fimRealizado FROM atividade, tipoatividade WHERE atividade.inicioRealizado BETWEEN ? AND ? AND atividade.idTipo = tipoatividade.id AND consolidado = 1 AND idFuncionario = ?";
