@@ -16,7 +16,9 @@ import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import model.AtividadesConsolidadas;
+import model.Grafico;
 import model.HorasTrabalhadasDepartamento;
+import model.HorasTrabalhadasFuncionario;
 
 
 @Path("horasTrabalhadasDepartamento")
@@ -27,7 +29,16 @@ public class HorasTrabalhadasDepartamentoResource {
     
     public HorasTrabalhadasDepartamentoResource() {
     }
-
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+    @Path("/{id}")
+    public Response getAtividadePorFunc(@PathParam("id") int id){
+        AtividadesConsolidadasDAO aDAO = new AtividadesConsolidadasDAO();
+        Grafico g = aDAO.buscarStatusAtividadesFuncionario(id);
+        return Response.status(Response.Status.OK).header("Access-Control-Allow-Origin", "*").entity(g).build();
+    }
+    
     @GET
     @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
     @Path("/{mes}/{ano}")
@@ -40,13 +51,21 @@ public class HorasTrabalhadasDepartamentoResource {
     
     @GET
     @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+    @Path("/horasTrabalhadasFuncionario/{mes}/{ano}")
+    public Response getHorasTrabalhadasFuncionario(@PathParam("mes") int mes, @PathParam("ano") int ano) {
+        RelatorioDepartamentoDAO aDAO = new RelatorioDepartamentoDAO();
+        List<HorasTrabalhadasFuncionario> lista = aDAO.buscarHorasFuncionario(mes, ano);
+        GenericEntity<List<HorasTrabalhadasFuncionario>> atividades = new GenericEntity<List<HorasTrabalhadasFuncionario>>(lista){};
+        return Response.status(Response.Status.OK).header("Access-Control-Allow-Origin", "*").entity(atividades).build();
+    }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
     @Path("/{dataInicio}/{dataFim}/{idFunc}")
     public Response getAtividadesConsolidadas(@PathParam("dataInicio") Date dataInicio, @PathParam("dataFim") Date dataFim, @PathParam("idFunc") int idFunc){
-        System.out.println("CHEGOU AQUI - WB");
         AtividadesConsolidadasDAO acDAO = new AtividadesConsolidadasDAO();
         List<AtividadesConsolidadas> lista = acDAO.buscaAtividadesConsolidadas(dataInicio, dataFim, idFunc);
         GenericEntity<List<AtividadesConsolidadas>> atividades = new GenericEntity<List<AtividadesConsolidadas>>(lista){};
-        System.out.println("CHEGOU AQUI 2 - WB");
         return Response.status(Response.Status.OK).header("Access-Control-Allow-Origin", "*").entity(atividades).build();
     }
     
