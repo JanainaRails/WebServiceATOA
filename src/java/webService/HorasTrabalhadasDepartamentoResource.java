@@ -34,8 +34,12 @@ public class HorasTrabalhadasDepartamentoResource {
     public Response getHorasTrabalhadas(@PathParam("mes") int mes, @PathParam("ano") int ano) {
         RelatorioDepartamentoDAO aDAO = new RelatorioDepartamentoDAO();
         List<HorasTrabalhadasDepartamento> lista = aDAO.buscarAtividades(mes, ano);
-        GenericEntity<List<HorasTrabalhadasDepartamento>> atividades = new GenericEntity<List<HorasTrabalhadasDepartamento>>(lista){};
-        return Response.status(Response.Status.OK).header("Access-Control-Allow-Origin", "*").entity(atividades).build();
+        if(lista!= null && lista.size()>0){
+            GenericEntity<List<HorasTrabalhadasDepartamento>> atividades = new GenericEntity<List<HorasTrabalhadasDepartamento>>(lista){};
+            return Response.ok().entity(atividades).build();
+        }
+        else
+            return Response.status(Response.Status.NOT_FOUND).header("Access-Control-Allow-Origin", "*").build();
     }
     
     @GET
