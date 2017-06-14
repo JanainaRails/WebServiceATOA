@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Atividade implements Serializable {
-    private int id, idFuncionario, idDepartamento;
+    private int id, status, idDepart;
     private String nome, descricao;
     private Date inicioAtividade, fimAtividade, inicioRealizado, fimRealizado;
     private boolean consolidado;
@@ -14,20 +14,20 @@ public class Atividade implements Serializable {
         
     }
 
+    public int getIdDepart() {
+        return idDepart;
+    }
+
+    public void setIdDepart(int idDepart) {
+        this.idDepart = idDepart;
+    }
+
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getIdFuncionario() {
-        return idFuncionario;
-    }
-
-    public void setIdFuncionario(int idFuncionario) {
-        this.idFuncionario = idFuncionario;
     }
 
     public TipoAtividade getTipo() {
@@ -94,13 +94,11 @@ public class Atividade implements Serializable {
         this.consolidado = consolidado;
     }
 
-    public int getIdDepartamento() {
-        return idDepartamento;
+    public int getStatus() {
+        return status;
     }
 
-    public void setIdDepartamento(int idDepartamento) {
-        this.idDepartamento = idDepartamento;
-    }
-    
-    
+    public void setStatus(int status) {
+        this.status = status;
+    }    
 }
